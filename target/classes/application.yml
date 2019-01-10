@@ -1,0 +1,26 @@
+server:
+  port: 8899
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 2000
+    min-spare-threads: 10
+    accesslog:
+      pattern: common
+      enabled: true
+      directory: ../logs
+      prefix: ad_access_log
+      suffix: .log
+      request-attributes-enabled: true
+      rename-on-rotate: true
+spring: 
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+    encoding: utf-8
+redis:
+  host: 192.168.1.157
+  port: 6379
+  time-out: 1000

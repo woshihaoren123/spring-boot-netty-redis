@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<title>聊天室</title>
+<script src="/js/jquery.min.js"></script>
+</head>
+<body style="background-color: black">
+	<div>
+		<div class="container">
+			<dialog open id="dialog" class="dialog-content"></dialog>
+		</div>
+		<div class="message-send">
+			<input type="text" id="mag" /> <input type="button" value="发送"
+				id="button1" onclick="send()" />
+			<div class="clear-both"></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var socket;
+	socket = new WebSocket("ws://127.0.0.1:7788");
+	socket.onmessage = function(event) {
+		$("dialog").append("<br>" + event.data);
+	}
+	var userId = GetQueryString("id");
+	var param = {
+		id: userId,
+		type: '1'
+	}
+	window.onload=function(){
+	    socket.send(JSON.stringify(param));
+	}
+	function send() {
+		var str = $('#mag').val();
+		let param = {
+			id: userId,
+			data: str
+		}
+		socket.send(JSON.stringify(param));
+		$("#mag").val("");
+	}
+	function GetQueryString(name){
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+	}
+</script>
+
+<style type="text/css">
+.container {
+	position: absolute;
+	top: 30px;
+	left: 30%;
+}
+
+.dialog-content {
+	width: 600px;
+	height: 700px;
+	background: #000;
+	color: #fff;
+	border-bottom: none;
+	border-top: 1px solid #fff;
+	border-bottom: none;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+}
+
+.message-send {
+	width: 635px;
+	position: relative;
+	height: 100px;
+	top: 725px;
+	left: 29.85%;
+}
+
+#mag {
+	float: left;
+	width: 501px;
+	height: 94px;
+	background: #000;
+	font-size: 20px;
+	color: white;
+	border: 1px solid #fff;
+}
+
+#button1 {
+	border-top: 1px solid #fff;
+	border-left: none;
+	border-right: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	background: black;
+	width: 132px;
+	height: 98px;
+	float: right;
+	color: white;
+	font-size: 50px;
+}
+
+.clear-both {
+	clear: both;
+}
+</style>
+</html>

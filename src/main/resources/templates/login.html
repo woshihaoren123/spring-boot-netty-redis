@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>聊天室</title>
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="login">
+        <div class="nav-bar">
+            <div class="wel-login">欢迎登录</div>
+        </div>
+        <div class="login-content">
+            <div class="user-input">
+                <div class="login-img">
+                    <img src="/image/personal.png">
+                </div>
+                <input type="text" id="username">
+                <div class="clear-both"></div>
+            </div>
+            <div class="psd-input">
+                <div class="login-img">
+                    <img src="/image/personal.png">
+                </div>
+                <input type="password" id="password">
+                <div class="clear-both"></div>
+            </div>
+        </div>
+        <div class="login-btn">
+            <div class="enter" onclick="login()">登录</div>
+            <div class="reset">注册</div>
+            <div class="clear-both"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+    function login() {
+        let username = $('#username').val();
+        let passwd = $('#password').val();
+        $.ajax({
+        	url: '/dologin',
+        	data: {
+        		username: username,
+        		passwd: passwd
+        	},
+        	success:function(data){
+        		window.location.href='index?id='+data;
+        	}
+        })
+    }
+</script>
+
+<style type="text/css">
+    body{
+        background: url(/image/login-bg.png) 0 0;
+    }
+    .container{
+        min-width: 1366px;
+        min-height: 555px;
+        height: auto;
+    }
+    .container .login{
+        width: 650px;
+        height:400px;
+        background:rgb(13,37,65,0.5);
+        border-radius: 6px;
+        margin: 13% auto 0 auto;
+        border:1px solid #3870a9;
+    }
+    .container .login .nav-bar{
+        height:70px;
+        line-height: 70px;
+        -webkit-border-radius: 6px 6px 0px 0px;
+        -moz-border-radius: 6px 6px 0px 0px;
+        border-radius:  6px 6px 0px 0px;
+        background: #17416f;
+
+    }
+    .container .login .nav-bar .wel-login{
+        font-size: 16px;
+        color: #fff;
+        opacity: 2;
+        padding:0 20px;
+    }
+    .login-content{
+        margin:50px 0;
+    }
+    .login-content .user-input{
+        margin-bottom: 30px !important;
+    }
+    .login-content .user-input,
+    .login-content .psd-input{
+        width: 451px;
+        height: 45px;
+        border-radius: 6px;
+        border:1px solid #b1c6d3;
+        margin: 2px auto;
+        border:none;
+    }
+    .login-content .user-input .login-img,
+    .login-content .psd-input .login-img{
+        width: 55px;
+        height: 45px !important;
+        float: left;
+        border-radius: 4px 0px 0px 4px;
+        background: #b1c6d3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .login-content .user-input input,
+    .login-content .psd-input input{
+        width: 387px;
+        height:39px;
+        color: #fff;
+        float: right;
+        font-size: 16px;
+        background: none;
+        padding-left: 5px;
+    }
+    .login .login-btn{
+        width: 400px;
+        height:50px;
+        margin:0 auto;
+    }
+    .login .enter,
+    .login .reset{
+        width: 180px;
+        height: 50px;
+        background: #3b7cc7;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 6px;
+        opacity: 5;
+        border: 1px solid #1f63b0;
+    }
+    .login .enter{
+        float: left;
+    }
+    .login .reset{
+        float: right;
+    }
+    .clear-both{
+        clear:both;
+    }
+</style>
+</html>
